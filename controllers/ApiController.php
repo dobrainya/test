@@ -3,12 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use yii\web\Controller;
 
 class ApiController extends Controller
 {
@@ -18,17 +14,6 @@ class ApiController extends Controller
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'only' => ['logout'],
-//                'rules' => [
-//                    [
-//                        'actions' => ['logout'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -50,11 +35,17 @@ class ApiController extends Controller
 
     public function actionApprove()
     {
+        $id = Yii::$app->request->get('id');
+
+        $service = Yii::$app->photoService;
+
         return $this->asJson('2');
     }
 
     public function actionReject()
     {
+        $id = Yii::$app->request->get('id');
+
         return $this->asJson('3');
     }
 }

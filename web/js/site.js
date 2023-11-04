@@ -1,21 +1,11 @@
 (function (w, d) {
-    let wrapper, spinner, imgID, commonHandler, imgEl;
+    let wrapper, spinner, imgID, commonHandler;
 
     spinner = $('#img-spinner');
     wrapper = $('#img-elem');
 
-
     commonHandler = ({imgId: id, imgSrc: src}) => {
-        if (!Number.isInteger(id)) {
-            throw new Error('Invalid image identifier');
-        }
-
-        if (typeof src !== 'string' || src === '') {
-            throw new Error('Undefined image source');
-        }
-
         imgID = id;
-
         wrapper.attr('src', src);
     };
 

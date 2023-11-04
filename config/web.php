@@ -1,5 +1,7 @@
 <?php
 
+use app\components\PhotoService;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -51,6 +53,11 @@ $config = [
                 '/api/img/approve/<id:\d+>' => 'api/approve',
                 '/api/img/get' => 'api/img',
             ],
+        ],
+        'photoService' => [
+            'class' => PhotoService::class,
+            'url' => 'https://picsum.photos/',
+            'defaultSize' => [300, 300],
         ],
     ],
     'params' => $params,

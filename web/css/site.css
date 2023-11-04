@@ -83,12 +83,11 @@ a.desc:after {
     outline: none;
 }
 
-#img-spinner {
+#img-elem, #img-spinner {
+    height: 300px;
+}
+#img-spinner .spinner-border {
     position: relative;
     top: 50%;
     left: 43%;
-}
-
-#img-elem {
-    height: 300px;
 }
