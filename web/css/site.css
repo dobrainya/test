@@ -82,3 +82,13 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+#img-spinner {
+    position: relative;
+    top: 50%;
+    left: 43%;
+}
+
+#img-elem {
+    height: 300px;
+}
