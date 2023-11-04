@@ -57,7 +57,7 @@ final class PhotoService extends Component
             throw new \Exception('Cannot fetch an image ID');
         }
 
-        if (Image::find()->where(['id' => $imageId])->exists()) {
+        if (Image::find()->where(['id' => $imageId])->active()->exists()) {
             return $this->fetchRandomSource($width, $height);
         }
 

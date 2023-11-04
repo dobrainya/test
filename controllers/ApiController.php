@@ -69,10 +69,21 @@ class ApiController extends AbstractController
 
     private function saveImage(int $id, int $status)
     {
-        $image = new Image();
-        $image->id = $id;
+        if (!$image = $this->findModel($id)) {
+            $image = new Image();
+            $image->id = $id;
+        }
         $image->status = $status;
         $image->save();
+    }
+
+    protected function findModel($id): ?Image
+    {
+        if (($model = Image::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        return null;
     }
 
     private function getPhotoService(): PhotoService

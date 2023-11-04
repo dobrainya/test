@@ -39,7 +39,7 @@ class ImageSearch extends Image
      */
     public function search($params)
     {
-        $query = Image::find();
+        $query = Image::find()->active();
 
         // add conditions that should always apply here
 

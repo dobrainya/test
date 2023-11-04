@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\ImageSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Images';
+$this->title = 'Изображения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="image-index">
@@ -22,19 +22,36 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => "{count} записей из {totalCount}",
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'status',
+            [
+                    'attribute' => 'status',
+                    'content' => static function (Image $model) {
+                        return $model->status === Image::STATUS_APPROVED ? 'Одобрено' : 'Отклонено';
+                    },
+                    'filter' => [Image::STATUS_APPROVED => 'Одобрено',Image::STATUS_REJECTED => 'Отклонено']
+            ],
             [
                 'class' => ActionColumn::className(),
+                'template' => "{reset}",
+                'headerOptions' => ['style' => 'width:20%'],
+                'header' => 'Управление',
                 'urlCreator' => function ($action, Image $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'buttons' => [
+                    'reset' => function ($url, $model) {
+                        return Html::a('Отмена решения', $url, [
+                            'title' => Yii::t('app', 'Reset decision'),
+                            'class' => 'btn btn-primary btn-sm'
+                        ]);
+                    },
+                ],
             ],
         ],
     ]); ?>
-
 
 </div>

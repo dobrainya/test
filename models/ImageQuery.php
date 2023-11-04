@@ -9,10 +9,10 @@ namespace app\models;
  */
 class ImageQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function active()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere('status IS NOT NULL');
+    }
 
     /**
      * {@inheritdoc}

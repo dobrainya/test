@@ -23,4 +23,16 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
 }

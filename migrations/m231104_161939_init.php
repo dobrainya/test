@@ -13,7 +13,7 @@ class m231104_161939_init extends Migration
     {
         $this->createTable('images', [
             'id'         => Schema::TYPE_BIGINT . ' NOT NULL PRIMARY KEY',
-            'status'     => Schema::TYPE_SMALLINT . ' NOT NULL',
+            'status'     => Schema::TYPE_SMALLINT,
             'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL',
         ]);
     }

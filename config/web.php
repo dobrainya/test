@@ -7,11 +7,17 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Изображения',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+    ],
+    'container' => [
+        'definitions' => [
+            \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+        ],
     ],
     'components' => [
         'request' => [
@@ -52,6 +58,7 @@ $config = [
                 '/api/img/reject/<id:\d+>' => 'api/reject',
                 '/api/img/approve/<id:\d+>' => 'api/approve',
                 '/api/img/get' => 'api/img',
+                '/dash/reset/<id:\d+>' => 'dash/reset'
             ],
         ],
         'photoService' => [

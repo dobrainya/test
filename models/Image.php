@@ -33,7 +33,7 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'status'], 'required'],
+            [['id'], 'required'],
             [['id', 'status'], 'default', 'value' => null],
             [['id', 'status'], 'integer'],
             [['created_at'], 'safe'],
@@ -61,9 +61,9 @@ class Image extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'status' => 'Status',
-            'created_at' => 'Created At',
+            'id'         => 'ID',
+            'status'     => 'Статус',
+            'created_at' => 'Создано',
         ];
     }
 

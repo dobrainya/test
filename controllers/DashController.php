@@ -4,9 +4,9 @@ namespace app\controllers;
 
 use app\models\Image;
 use app\models\ImageSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 class DashController extends Controller
 {
@@ -38,24 +38,12 @@ class DashController extends Controller
         $searchModel = new ImageSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $dataProvider->pagination->pageSize = 10;
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
-
-    /**
-     * Deletes an existing Image model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
@@ -67,10 +55,19 @@ class DashController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Image::findOne(['id' => $id])) !== null) {
+        if (($model = Image::find()->where(['id' => $id])->active()->one()) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionReset($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = null;
+        $model->save();
+
+        return $this->redirect(['index']);
     }
 }
