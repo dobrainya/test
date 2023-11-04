@@ -12,11 +12,12 @@ class m231104_161939_init extends Migration
     public function up()
     {
         $this->createTable('images', [
-            'id' => Schema::TYPE_PK,
-            'url' => Schema::TYPE_TEXT,
-            'created_at' => Schema::TYPE_TIMESTAMP,
-            'status' => Schema::TYPE_SMALLINT,
+            'id'         => Schema::TYPE_BIGINT . ' NOT NULL',
+            'status'     => Schema::TYPE_SMALLINT . ' NOT NULL',
+            'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL',
         ]);
+
+        $this->createIndex('image_id_uix', 'images', 'id', true);
     }
 
     public function down()

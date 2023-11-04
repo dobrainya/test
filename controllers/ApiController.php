@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
+use app\components\PhotoService;
+use app\models\Image;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\web\Controller;
 
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     /**
      * {@inheritdoc}
@@ -27,25 +28,55 @@ class ApiController extends Controller
 
     public function actionImg()
     {
-        return $this->asJson([
-            'imgId'=> 1020,
-            'imgSrc' => 'https://picsum.photos/id/1020/600/500',
-        ]);
+        try {
+            return $this->asJson($this->getPhotoService()->fetch());
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage());
+
+            return $this->jsonFailure('Server Error');
+        }
     }
 
     public function actionApprove()
     {
-        $id = Yii::$app->request->get('id');
+        try {
+            $id = Yii::$app->request->get('id');
 
-        $service = Yii::$app->photoService;
+            $this->saveImage((int) $id, Image::STATUS_APPROVED);
 
-        return $this->asJson('2');
+            return $this->asJson($this->getPhotoService()->fetch());
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage());
+
+            return $this->jsonFailure('Server Error');
+        }
     }
 
     public function actionReject()
     {
-        $id = Yii::$app->request->get('id');
+        try {
+            $id = Yii::$app->request->get('id');
 
-        return $this->asJson('3');
+            $this->saveImage((int) $id, Image::STATUS_REJECTED);
+
+            return $this->asJson($this->getPhotoService()->fetch());
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage());
+
+            return $this->jsonFailure('Server Error');
+        }
+    }
+
+    private function saveImage(int $id, int $status)
+    {
+        $image = new Image();
+        $image->id = $id;
+        $image->status = $status;
+        $image->save();
+    }
+
+    private function getPhotoService(): PhotoService
+    {
+        return Yii::$app->photoService;
     }
 }

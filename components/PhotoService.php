@@ -1,6 +1,7 @@
 <?php
 namespace app\components;
 
+use app\models\Image;
 use yii\base\Component;
 
 final class PhotoService extends Component
@@ -30,9 +31,47 @@ final class PhotoService extends Component
         parent::__construct($config);
     }
 
-    public function fetchPhoto()
+    public function fetch(?int $width = null, ?int $height = null): array
     {
+        return $this->fetchRandomSource($width, $height);
+    }
 
+    private function fetchRandomSource(?int $width = null, ?int $height = null): array
+    {
+        $response = $this->client->get(
+            $this->composeImageUrl('/', $width, $height),
+            [
+                'query'=> [
+                    'random' => 1,
+                ],
+            ]
+        );
+
+        if (!$response->hasHeader('Picsuma-id')) {
+            throw new \RuntimeException('Invalid response');
+        }
+
+        [$imageId] = $response->getHeader('Picsum-id');
+
+        if (!is_numeric($imageId)) {
+            throw new \Exception('Cannot fetch an image ID');
+        }
+
+        if (Image::find()->where(['id' => $imageId])->exists()) {
+            return $this->fetchRandomSource($width, $height);
+        }
+
+        return [
+            'imgId' => $imageId,
+            'imgSrc' => $this->composeImageUrl("/id/{$imageId}", $width, $height) . '.jpg',
+        ];
+    }
+
+    private function composeImageUrl(string $path= '/', ?int $width = null, ?int $height = null): string
+    {
+        [$defWidth, $defHeight] = $this->defaultSize;
+
+        return \sprintf('%s%s/%d/%d', rtrim($this->url, '/'), $path, $width ?: $defWidth, $height ?: $defHeight);
     }
 
     /**
