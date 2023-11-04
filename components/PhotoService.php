@@ -47,7 +47,7 @@ final class PhotoService extends Component
             ]
         );
 
-        if (!$response->hasHeader('Picsuma-id')) {
+        if (!$response->hasHeader('Picsum-id')) {
             throw new \RuntimeException('Invalid response');
         }
 

@@ -33,7 +33,7 @@ class ApiController extends AbstractController
         } catch (\Exception $e) {
             Yii::error($e->getMessage());
 
-            return $this->jsonFailure('Server Error');
+            throw $e;
         }
     }
 
@@ -48,7 +48,7 @@ class ApiController extends AbstractController
         } catch (\Exception $e) {
             Yii::error($e->getMessage());
 
-            return $this->jsonFailure('Server Error');
+            throw $e;
         }
     }
 
@@ -63,7 +63,7 @@ class ApiController extends AbstractController
         } catch (\Exception $e) {
             Yii::error($e->getMessage());
 
-            return $this->jsonFailure('Server Error');
+            throw $e;
         }
     }
 

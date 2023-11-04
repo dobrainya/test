@@ -61,18 +61,18 @@ class Image extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'         => 'ID',
-            'status'     => 'Status',
+            'id' => 'ID',
+            'status' => 'Status',
             'created_at' => 'Created At',
         ];
     }
 
     /**
      * {@inheritdoc}
-     * @return ImagesQuery the active query used by this AR class.
+     * @return ImageQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new ImagesQuery(get_called_class());
+        return new ImageQuery(get_called_class());
     }
 }
