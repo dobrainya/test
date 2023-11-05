@@ -66,7 +66,7 @@ $config = [
         'photoService' => [
             'class' => PhotoService::class,
             'url' => 'https://picsum.photos/',
-            'defaultSize' => [300, 300],
+            'defaultSize' => [600, 600],
         ],
         'i18n' => [
             'translations' => [
