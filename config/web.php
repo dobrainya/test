@@ -7,9 +7,10 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Изображения',
+    'name' => 'Images',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -58,6 +59,7 @@ $config = [
                 '/api/img/reject/<id:\d+>' => 'api/reject',
                 '/api/img/approve/<id:\d+>' => 'api/approve',
                 '/api/img/get' => 'api/img',
+                '/dash' => 'dash/index',
                 '/dash/reset/<id:\d+>' => 'dash/reset'
             ],
         ],
@@ -65,6 +67,19 @@ $config = [
             'class' => PhotoService::class,
             'url' => 'https://picsum.photos/',
             'defaultSize' => [300, 300],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+//                    'basePath' => '@app/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
         ],
     ],
     'params' => $params,

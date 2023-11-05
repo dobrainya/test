@@ -16,8 +16,8 @@ $this->title = 'Random image';
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="reject-img" class="btn btn-danger btn-lg">Отклонить</div>
-                    <div id="approve-img" class="btn btn-success btn-lg">Одобрить</div>
+                    <div id="reject-img" class="btn btn-danger btn-lg"><?=Yii::t('app', 'Reject');?></div>
+                    <div id="approve-img" class="btn btn-success btn-lg"><?=Yii::t('app', 'Approve');?></div>
                 </div>
             </div>
         </div>

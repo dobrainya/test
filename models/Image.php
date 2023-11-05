@@ -62,7 +62,7 @@ class Image extends \yii\db\ActiveRecord
     {
         return [
             'id'         => 'ID',
-            'status'     => 'Статус',
+            'status'     => 'Решение',
             'created_at' => 'Создано',
         ];
     }

@@ -67,7 +67,7 @@ final class PhotoService extends Component
         ];
     }
 
-    private function composeImageUrl(string $path= '/', ?int $width = null, ?int $height = null): string
+    public function composeImageUrl(string $path= '/', ?int $width = null, ?int $height = null): string
     {
         [$defWidth, $defHeight] = $this->defaultSize;
 

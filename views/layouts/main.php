@@ -37,7 +37,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Админка', 'url' => ['/dash']],
+            ['label' => Yii::t('app', 'Dash'), 'url' => ['/dash']],
         ],
     ]);
     NavBar::end();
@@ -56,8 +56,7 @@ AppAsset::register($this);
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <p class="float-left">&copy; <?=Yii::$app->name?> <?= date('Y') ?></p>
     </div>
 </footer>
 
